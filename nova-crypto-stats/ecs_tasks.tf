@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "ecs_tsk" {
   family                = "${var.environment}-${var.project}-${var.project_component}-tsk"
   container_definitions = data.template_file.container_definitions.rendered
   cpu                   = var.task_cpu
-  execution_role_arn    = "arn:aws:iam::341481854267:role/ecsTaskExecutionRole"
+  execution_role_arn    = "arn:aws:iam::437622698243:role/ecsTaskExecutionRole"
   #    id                       = "ecs-node-service"
   memory       = var.task_memory
   network_mode = "awsvpc"
@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "ecs_tsk" {
     environment = var.environment
     description = "This task is updated using terraform"
   }
-  task_role_arn = "arn:aws:iam::341481854267:role/ecsTaskExecutionRole"
+  task_role_arn = "arn:aws:iam::437622698243:role/ecsTaskExecutionRole"
 }
 
 data "template_file" "container_definitions" {

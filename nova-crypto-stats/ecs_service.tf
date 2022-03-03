@@ -71,13 +71,13 @@ resource "aws_service_discovery_service" "service_discovery" {
       ttl  = 60
       type = "A"
     }
-    namespace_id   = (var.environment == "prod" ? "ns-d3vkujubmpshovvl" : var.environment == "stg" ? "ns-e4oojsomufujo22k" : "ns-3u2sriuf4ldwq4s5")
+    namespace_id   = (var.environment == "prod" ? "ns-d3vkujubmpshovvl" : var.environment == "stg" ? "ns-e4oojsomufujo22k" : "ns-72zvjzakwsrj6bxw")
     routing_policy = "MULTIVALUE"
   }
   health_check_custom_config {
     failure_threshold = 1
   }
-  name = "${var.project}-${var.project_component}"
+  name = "${var.environment}-${var.project}-${var.project_component}"
   tags = {
     createdby   = var.createdby
     project     = var.project
