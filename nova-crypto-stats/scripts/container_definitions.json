@@ -1,0 +1,59 @@
+[
+  {
+    "cpu": 0,
+    "environment": [
+      {
+         "name": "ACCESS_TOKEN_EDP",
+         "value": "https://stg-billable-services.seamfix.com/bauth/oauth/check_token/bauth/oauth/token"
+       },
+       {
+         "name": "AUTH_EDP",
+         "value": "https://stg-billable-services.seamfix.com"
+       },
+       {
+         "name": "DATASOURCE_PASSWORD",
+         "value": "k0l0"
+       },
+       {
+         "name": "DATASOURCE_URL",
+         "value": "jdbc:postgresql://52.211.127.247:5432/billable"
+       },
+       {
+         "name": "DATASOURCE_USERNAME",
+         "value": "seamfix"
+       },
+       {
+         "name": "EUREKA_HOSTNAME",
+         "value": "stg-billable-lb-1857821229.us-east-1.elb.amazonaws.com"
+       },
+       {
+         "name": "HIBERNATE_DEFAULT_SCHEMA",
+         "value": "billable"
+       },
+       {
+         "name": "MEMCACHE",
+         "value": "billable-cache.2nbajg.cfg.use1.cache.amazonaws.com:11211"
+       }
+    ],
+    "essential": true,
+    "image": "${ecr_repo_url}:${image_id}",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${loggroup}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "mountPoints": [],
+    "name": "${task_name}",
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": ${container_port},
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": []
+  }
+]
