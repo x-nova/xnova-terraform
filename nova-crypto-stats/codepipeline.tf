@@ -72,8 +72,10 @@ resource "aws_codepipeline" "ecs_codepipeline_project" {
 # }
 
 data "aws_codestarconnections_connection" "ecs_codepipeline" {
-  arn = "arn:aws:codestar-connections:us-east-1:437622698243:connection/5448968f-2cdb-479c-99e4-afa60bc2294e"
+  arn = "arn:aws:codestar-connections:us-east-1:437622698243:connection/d350c8ad-e84e-4528-8f1f-eb22ce6aad64"
 }
+
+
 
 resource "aws_iam_role" "ecs_codepipeline" {
   name = "${var.environment}-${var.project}-${var.project_component}-codepipeline-role"
