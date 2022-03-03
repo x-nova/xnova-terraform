@@ -4,7 +4,7 @@ resource "aws_codepipeline" "ecs_codepipeline_project" {
   role_arn   = aws_iam_role.ecs_codepipeline.arn
 
   artifact_store {
-    location = (var.environment == "prod" ? "codepipeline-us-east-2-404459981228" : var.environment == "stg" ? "codepipeline-us-east-1-454305357471" : "codepipeline-us-east-1-454305357471")
+    location = (var.environment == "prod" ? "codepipeline-us-east-1-416492527919" : var.environment == "stg" ? "codepipeline-us-east-1-416492527919" : "codepipeline-us-east-1-416492527919")
     type     = "S3"
   }
 
@@ -22,7 +22,7 @@ resource "aws_codepipeline" "ecs_codepipeline_project" {
       configuration = {
         ConnectionArn    = data.aws_codestarconnections_connection.ecs_codepipeline.arn
         FullRepositoryId = var.repo_id
-        BranchName       = (var.environment == "prod" ? "master" : var.environment == "stg" ? "snapshot" : "staging-dev")
+        BranchName       = (var.environment == "prod" ? "master" : var.environment == "stg" ? "stg" : "dev")
       }
     }
   }
