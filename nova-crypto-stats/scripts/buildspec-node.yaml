@@ -8,9 +8,6 @@ phases:
       - REPOSITORY_URI=${ecr_repo_url}
   install:
     commands:
-      - npm install -g npm-cli-login
-      - npm-cli-login -u seamfix -p "k0l0" -e doluwasegun@seamfix.com -r http://npm.seamfix.com
-      - npm set registry http://npm.seamfix.com
       - npm install
   build:
     commands:

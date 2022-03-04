@@ -1,9 +1,9 @@
 variable "cluster_name" {
-  default = "dev-verified-cluster"
+  default = "dev-cluster"
 }
 
 variable "svc_name" {
-  default = "verified-id-service-svc"
+  default = "svc"
 }
 
 variable "health_check_grace_period_seconds" {
@@ -11,7 +11,7 @@ variable "health_check_grace_period_seconds" {
 }
 
 variable "discovery_namespaceid" {
-  default = "ns-3u2sriuf4ldwq4s5"
+  default = "ns-72zvjzakwsrj6bxw"
 }
 
 variable "discovery_name" {

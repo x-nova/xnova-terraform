@@ -23,12 +23,12 @@ data "aws_subnet" "ecs_subnets" {
 
 data "aws_lb" "ecs_lb" {
   arn  = var.elb_arn
-#  name = "${var.environment}-${var.project}-lb"
+  name = "${var.environment}-${var.project}-lb"
 }
 
 resource "aws_lb_target_group" "ecs_tg" {
   name        = "${var.environment}-${var.project}-${var.project_component}-tg"
-  port        = "80"
+  port        = 80
   protocol    = "HTTP"
   target_type = "ip"
   slow_start  = 60
@@ -42,13 +42,44 @@ resource "aws_lb_target_group" "ecs_tg" {
   }
 }
 
-resource "aws_lb_listener" "service_port_listener" {
+data "aws_lb_listener" "selected443" {
   load_balancer_arn = data.aws_lb.ecs_lb.arn
-  port              = var.container_port
-  protocol          = "HTTP"
+  port              = 443
+}
 
-  default_action {
+data "aws_lb_listener" "selected80" {
+  load_balancer_arn = data.aws_lb.ecs_lb.arn
+  port              = 80
+}
+
+resource "aws_lb_listener_rule" "listener_rule_https" {
+  listener_arn = data.aws_lb_listener.selected443.arn
+  #priority     = 100
+
+  action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.ecs_tg.arn
+  }
+
+  condition {
+    path_pattern {
+      values = var.listener_rule_pattern
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "listener_rule_http" {
+  listener_arn = data.aws_lb_listener.selected80.arn
+  #priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.ecs_tg.arn
+  }
+
+  condition {
+    path_pattern {
+      values = var.listener_rule_pattern
+    }
   }
 }
