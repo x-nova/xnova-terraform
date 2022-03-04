@@ -26,7 +26,7 @@ health_check_grace_period_seconds = "60"
 health_check_path = "/api/market/health"
 
 #The base context path for the service
-listener_rule_pattern = ["/api/market"]
+listener_rule_pattern = ["/api/market*"]
 
 #The port number for the service
 container_port = 8080
