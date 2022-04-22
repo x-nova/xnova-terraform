@@ -1,0 +1,26 @@
+[
+  {
+    "cpu": 0,
+    "environment": [],
+    "essential": true,
+    "image": "${ecr_repo_url}:${image_id}",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${loggroup}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "mountPoints": [],
+    "name": "${task_name}",
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": ${container_port},
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": []
+  }
+]
