@@ -42,13 +42,13 @@ resource "aws_lb_target_group" "ecs_tg" {
   }
 }
 
-data "aws_lb_listener" "selected80" {
+resource "aws_lb_listener" "selected8081" {
   load_balancer_arn = data.aws_lb.ecs_lb.arn
   port              = 8081
 }
 
 resource "aws_lb_listener_rule" "listener_rule_http" {
-  listener_arn = data.aws_lb_listener.selected80.arn
+  listener_arn = aws_lb_listener.selected80.arn
   #priority     = 100
 
   action {
