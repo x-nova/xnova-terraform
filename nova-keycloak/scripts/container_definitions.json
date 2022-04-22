@@ -1,0 +1,59 @@
+[
+  {
+    "cpu": 0,
+    "environment": [
+      {
+        "name": "DB_VENDOR", 
+        "value": "POSTGRES"
+      }, 
+      {
+        "name": "DB_ADDR", 
+        "value": "postgres"
+      },
+      {
+        "name": "DB_DATABASE", 
+        "value": "nova_db"
+      },
+      {
+        "name": "DB_USER", 
+        "value": "nova"
+      },
+      {
+        "name": "DB_SCHEMA", 
+        "value": "public"
+      },
+      {
+        "name": "DB_PASSWORD", 
+        "value": "public"
+      },
+      {
+        "name": "KEYCLOAK_USER", 
+        "value": "admin"
+      },
+      {
+        "name": "KEYCLOAK_PASSWORD", 
+        "value": "Pa55w0rd"
+      }   
+    ],
+    "essential": true,
+    "image": "quay.io/keycloak/keycloak:legacy",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${loggroup}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "mountPoints": [],
+    "name": "${task_name}",
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": ${container_port},
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": []
+  }
+]
