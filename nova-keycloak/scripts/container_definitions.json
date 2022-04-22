@@ -8,15 +8,15 @@
       }, 
       {
         "name": "DB_ADDR", 
-        "value": "postgres"
+        "value": "dev-postgres.novawallet.exchange"
       },
       {
         "name": "DB_DATABASE", 
-        "value": "nova_db"
+        "value": "keycloak"
       },
       {
         "name": "DB_USER", 
-        "value": "nova"
+        "value": "postgres"
       },
       {
         "name": "DB_SCHEMA", 
@@ -24,7 +24,7 @@
       },
       {
         "name": "DB_PASSWORD", 
-        "value": "public"
+        "value": "n0vAh69er47"
       },
       {
         "name": "KEYCLOAK_USER", 
