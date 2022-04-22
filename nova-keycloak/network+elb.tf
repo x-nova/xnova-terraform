@@ -45,10 +45,16 @@ resource "aws_lb_target_group" "ecs_tg" {
 resource "aws_lb_listener" "selected8081" {
   load_balancer_arn = data.aws_lb.ecs_lb.arn
   port              = 8081
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.ecs_tg.arn
+  }
+
 }
 
 resource "aws_lb_listener_rule" "listener_rule_http" {
-  listener_arn = aws_lb_listener.selected80.arn
+  listener_arn = aws_lb_listener.selected8081.arn
   #priority     = 100
 
   action {
