@@ -35,8 +35,6 @@ resource "aws_ecs_task_definition" "ecs_tsk" {
 data "template_file" "container_definitions" {
   template = file("${var.container_definitions}")
   vars = {
-    ecr_repo_url   = aws_ecr_repository.ecs.repository_url
-    image_id       = (jsondecode(data.external.tags_of_most_recently_pushed_image.result.tags) == null ? "latest" : jsondecode(data.external.tags_of_most_recently_pushed_image.result.tags)[0])
     loggroup       = aws_cloudwatch_log_group.ecs_loggroup.name
     region         = var.region
     task_name      = var.project_component
