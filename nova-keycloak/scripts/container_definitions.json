@@ -8,7 +8,7 @@
       }, 
       {
         "name": "DB_ADDR", 
-        "value": "dev-postgres.novawallet.exchange"
+        "value": "dev-postgres.novawallet.exchange:5432"
       },
       {
         "name": "DB_DATABASE", 
