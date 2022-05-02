@@ -12,7 +12,7 @@
       },
       {
         "name": "DB_DATABASE", 
-        "value": "keycloak"
+        "value": "keycloak_db"
       },
       {
         "name": "DB_USER", 
