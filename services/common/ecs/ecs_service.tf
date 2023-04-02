@@ -95,6 +95,7 @@ resource "aws_appautoscaling_target" "ecs_memory" {
 }
 
 resource "aws_appautoscaling_policy" "ecs_memory" {
+  count             = var.enable_autoscaling ? 1 : 0
   name               = "${aws_ecs_service.ecs_svc.name}-memory-policy"
   policy_type        = "StepScaling"
   resource_id        = "${aws_appautoscaling_target.ecs_memory.resource_id}"
@@ -130,6 +131,7 @@ resource "aws_appautoscaling_policy" "ecs_memory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_memory" {
+  count             = var.enable_autoscaling ? 1 : 0
   alarm_name          = "ecs-memory-alarm"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
@@ -139,7 +141,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_memory" {
   statistic           = "Average"
   threshold           = var.target_memory
   alarm_description   = "This metric monitors memory utilization for the ${aws_ecs_service.ecs_svc.name} service."
-  alarm_actions       = [aws_appautoscaling_policy.ecs_memory.arn]
+  alarm_actions       = [aws_appautoscaling_policy.ecs_memory[count.index].arn]
 
   dimensions = {
     ClusterName = "${var.project}-${var.environment}-cluster"

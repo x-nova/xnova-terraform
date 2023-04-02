@@ -1,13 +1,19 @@
 locals {
   buildspec_content = {
     java = templatefile("${path.module}/scripts/buildspec-java.yaml", {
-      ecr_repo_url = aws_ecr_repository.ecs.repository_url
+      ecr_repo_url = var.ecr_repository_url
       region       = var.region
       task_name    = var.component
       image_name   = "${var.project}-${var.component}-${var.environment}"
     })
     node = templatefile("${path.module}/scripts/buildspec-node.yaml", {
-      ecr_repo_url = aws_ecr_repository.ecs.repository_url
+      ecr_repo_url = var.ecr_repository_url
+      region       = var.region
+      task_name    = var.component
+      image_name   = "${var.project}-${var.component}-${var.environment}"
+    })
+    php = templatefile("${path.module}/scripts/buildspec-php.yaml", {
+      ecr_repo_url = var.ecr_repository_url
       region       = var.region
       task_name    = var.component
       image_name   = "${var.project}-${var.component}-${var.environment}"
@@ -100,7 +106,7 @@ resource "aws_codebuild_project" "this" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+    image                       = "aws/codebuild/standard:6.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
@@ -121,7 +127,8 @@ resource "aws_codebuild_project" "this" {
     type            = "GITHUB"
     location        = var.code_repo
     git_clone_depth = 1
-    buildspec       = var.tech == "java" ? local.buildspec_content.java : local.buildspec_content.node
+    buildspec       = local.buildspec_content[var.tech]
+    #var.tech == "java" ? local.buildspec_content.java : local.buildspec_content.node
 
     git_submodules_config {
       fetch_submodules = true

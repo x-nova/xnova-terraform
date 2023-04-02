@@ -1,7 +1,7 @@
 resource "aws_rds_cluster" "this" {
   # Configuration
   cluster_identifier_prefix    = local.full_name
-  database_name                = var.product
+  database_name                = replace(lower(var.product), "-", "")
   engine_mode                  = "provisioned"
   engine                       = local.engine_name
   engine_version               = var.pg_version
@@ -21,7 +21,7 @@ resource "aws_rds_cluster" "this" {
 
   ## Security & auditability
   vpc_security_group_ids              = [module.primary_db_sg.security_group_id]
-  availability_zones                  = data.aws_availability_zones.primary_azs.names
+  availability_zones                  = local.selected_azs #data.aws_availability_zones.primary_azs.names
   db_subnet_group_name                = aws_db_subnet_group.this.name
   db_cluster_parameter_group_name     = aws_rds_cluster_parameter_group.this.name
   master_username                     = random_string.db_username.result

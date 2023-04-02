@@ -1,5 +1,9 @@
+locals {
+  target_group_name = "${var.project}-${var.component}-${var.environment}-tg"
+}
+
 resource "aws_lb_target_group" "ecs_tg" {
-  name        = "${var.project}-${var.component}-${var.environment}-tg"
+  name        = length(local.target_group_name) > 32 ? substr(local.target_group_name, 0, 32) : local.target_group_name
   port        = var.container_port
   protocol    = "HTTP"
   target_type = "ip"

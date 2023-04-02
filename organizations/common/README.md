@@ -16,7 +16,7 @@ module "aws-organization-accounts" {
     },
     {
       environment = "staging"
-      account_name_override = "devops+staging@transreport.co.uk"
+      account_name_override = "devops+staging@novawallet.co.uk"
     },
   ]
 }

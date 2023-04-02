@@ -12,7 +12,7 @@ variable "component" {
 
 variable "container_port" {
   type = number
-  default = 8080
+  default = 8000
 }
 
 variable "environment_variables" {
@@ -47,7 +47,7 @@ variable "health_check_grace_period_seconds" {
 
 variable "health_check_ping_interval" {
   type    = number
-  default = 30
+  default = 90
 }
 
 variable "unhealthy_threshold" {
@@ -91,4 +91,9 @@ variable "vpc_id" {
 
 variable "listener_rule_pattern" {
   type = list(string)
+}
+
+variable "enable_autoscaling" {
+  type    = bool
+  default = false
 }

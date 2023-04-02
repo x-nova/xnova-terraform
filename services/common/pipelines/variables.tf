@@ -46,3 +46,8 @@ variable "region" {
 variable "tech" {
   type = string
 }
+
+variable "ecr_repository_url" {
+  type        = string
+  description = "URL of the ECR repository to be created"
+}
