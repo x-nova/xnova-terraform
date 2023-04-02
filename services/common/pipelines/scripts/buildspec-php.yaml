@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.1
+  pre_build:
+    commands:
+      - REPOSITORY_URI=${ecr_repo_url}
+      - echo Logging in to AWS ECR...
+      - trimmed_url=$(echo $REPOSITORY_URI | sed 's/\/.*//')
+      - aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin $trimmed_url
+  build:
+    commands:
+      - composer install
+      - docker build -f Dockerfile -t ${image_name} .
+      - docker tag ${image_name}:latest $REPOSITORY_URI:v$CODEBUILD_BUILD_NUMBER
+  post_build:
+    commands:
+      - docker push $REPOSITORY_URI:v$CODEBUILD_BUILD_NUMBER
+      - echo Writting image definitions file...
+      - printf '[{"name":"${task_name}","imageUri":"%s"}]' $REPOSITORY_URI:v$CODEBUILD_BUILD_NUMBER > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
+cache:
+  paths:
+    - "/root/.m2/**/*"
